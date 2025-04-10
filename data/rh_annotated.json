@@ -1,0 +1,38 @@
+[
+    {
+        "audiopath": "/Users/fernando/Downloads/data/Audio/rh_0001.wav",
+        "beats_annotations_path": "/Users/fernando/Downloads/data/Transcriptions/rh_0001/rh_0001.txt"
+    },
+    {
+        "audiopath": "/Users/fernando/Downloads/data/Audio/rh_0002.wav",
+        "beats_annotations_path": "/Users/fernando/Downloads/data/Transcriptions/rh_0002/rh_0002.txt"
+    },
+    {
+        "audiopath": "/Users/fernando/Downloads/data/Audio/rh_0003.wav",
+        "beats_annotations_path": "/Users/fernando/Downloads/data/Transcriptions/rh_0003/rh_0003.txt"
+    },
+    {
+        "audiopath": "/Users/fernando/Downloads/data/Audio/rh_0038.wav",
+        "beats_annotations_path": "/Users/fernando/Downloads/data/Transcriptions/rh_0038/rh_0038.txt"
+    },
+    {
+        "audiopath": "/Users/fernando/Downloads/data/Audio/rh_0039.wav",
+        "beats_annotations_path": "/Users/fernando/Downloads/data/Transcriptions/rh_0039/rh_0039.txt"
+    },
+    {
+        "audiopath": "/Users/fernando/Downloads/data/Audio/rh_0067.wav",
+        "beats_annotations_path": "/Users/fernando/Downloads/data/Transcriptions/rh_0067/rh_0067.txt"
+    },
+    {
+        "audiopath": "/Users/fernando/Downloads/data/Audio/rh_0079.wav",
+        "beats_annotations_path": "/Users/fernando/Downloads/data/Transcriptions/rh_0079/rh_0079.txt"
+    },
+    {
+        "audiopath": "/Users/fernando/Downloads/data/Audio/rh_0080.wav",
+        "beats_annotations_path": "/Users/fernando/Downloads/data/Transcriptions/rh_0080/rh_0080.txt"
+    },
+    {
+        "audiopath": "/Users/fernando/Downloads/data/Audio/rh_0100.wav",
+        "beats_annotations_path": "/Users/fernando/Downloads/data/Transcriptions/rh_0100/rh_0100.txt"
+    }
+]
