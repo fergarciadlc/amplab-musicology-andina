@@ -31,3 +31,8 @@ python -m harmony_analysis.cli \
     --beat-folder "/Users/fernando/Downloads/data/Transcriptions/rh_0001/" \
     --output-dir "output/"
 ```
+
+## Using JSON file as input
+```bash
+python -m harmony_analysis.cli --json-input-file data/rh_annotated.json --output-dir data/output 
+```

@@ -11,7 +11,9 @@ from .chords import build_chords_dictionary, note_to_semitone, triad_to_chord
 
 
 def load_beat_annotations(
-    audio_filepath: Path, beat_annotations_folder: Path
+    audio_filepath: Path,
+    beat_annotations_folder: Path,
+    beat_annotation_filepath: Path = None,
 ) -> List[float]:
     """
     Given an audio filename and a folder containing .txt beat annotations with the same name,
@@ -30,7 +32,12 @@ def load_beat_annotations(
         A list of beat times, in seconds.
     """
     beat_annotation_filename = audio_filepath.name.replace(".wav", ".txt")
-    beat_annotation_path = beat_annotations_folder / beat_annotation_filename
+
+    if beat_annotation_filepath:
+        # If a specific beat annotation file is provided, use that instead
+        beat_annotation_path = beat_annotation_filepath
+    else:
+        beat_annotation_path = beat_annotations_folder / beat_annotation_filename
 
     beats_times = []
     with open(beat_annotation_path, "r") as f:
@@ -130,14 +137,16 @@ def add_triads_and_chords(beat_chroma_df: pd.DataFrame) -> pd.DataFrame:
     }
     chroma_cols = [f"chroma_{i}" for i in range(12)]
 
-    def get_top_3_notes(row: pd.Series) -> str:
+    def get_top_n_notes(row: pd.Series, n=3) -> str:
         top_chroma_cols = row.nlargest(
-            3
+            n
         ).index  # e.g. ["chroma_0", "chroma_4", "chroma_7"]
         notes = [chroma_notes_mapping[col] for col in top_chroma_cols]
         return "-".join(notes)  # e.g. "C-E-G"
 
-    beat_chroma_df["triad"] = beat_chroma_df[chroma_cols].apply(get_top_3_notes, axis=1)
+    beat_chroma_df["triad"] = beat_chroma_df[chroma_cols].apply(
+        get_top_n_notes, n=3, axis=1
+    )
 
     # Build chord templates once
     chords_dict = build_chords_dictionary()
@@ -145,6 +154,10 @@ def add_triads_and_chords(beat_chroma_df: pd.DataFrame) -> pd.DataFrame:
     # Map each triad to a recognized chord (or "Unknown")
     beat_chroma_df["chord"] = beat_chroma_df["triad"].apply(
         lambda triad_str: triad_to_chord(triad_str, chords_dict, note_to_semitone)
+    )
+
+    beat_chroma_df["tetrad"] = beat_chroma_df[chroma_cols].apply(
+        get_top_n_notes, n=4, axis=1
     )
 
     return beat_chroma_df
@@ -155,6 +168,7 @@ def process_audio_file(
     beat_annotations_folder: Path,
     output_csv: Path,
     hop_length: int = 512,
+    beat_annotation_filepath: Path = None,
 ) -> None:
     """
     High-level function to load one audio file, compute the beat-level chroma,
@@ -175,7 +189,9 @@ def process_audio_file(
     x, sr = librosa.load(audio_filepath, sr=None, mono=True)
 
     # 2) Load beats
-    beats_timestamps = load_beat_annotations(audio_filepath, beat_annotations_folder)
+    beats_timestamps = load_beat_annotations(
+        audio_filepath, beat_annotations_folder, beat_annotation_filepath
+    )
 
     # Edge case: if less than 2 beats, we can't do intervals
     if len(beats_timestamps) < 2:
