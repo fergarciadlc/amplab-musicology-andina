@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import colors
 
 
-def plot_chromagram(X, sr_feature=1, title="Chromagram", figsize=(20, 10)):
+def plot_chromagram(X, sr_feature=1, title="Chromagram", figsize=(30, 15)):
     """
     Simple plot of a (12 x N) chroma matrix with time on x-axis.
     sr_feature ~ frames/sec so total duration ~ N / sr_feature.
@@ -35,7 +35,7 @@ def plot_binary_time_chord(
     chord_labels=None,
     sr_feature=1,
     title="Time–chord representation",
-    figsize=(20, 10),
+    figsize=(30, 15),
 ):
     """
     Plots a binary matrix (num_chords x N).
@@ -71,7 +71,7 @@ def plot_eval_matrix(
     sr_feature=1,
     chord_labels=None,
     title="Evaluation result",
-    figsize=(20, 10),
+    figsize=(30, 15),
 ):
     """
     Color-coded comparison:

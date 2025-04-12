@@ -99,3 +99,21 @@ def save_chord_sequence_to_csv(times_s, chord_seq, out_csv):
         writer.writerow(["time_s", "predicted_chord"])
         for t, c in zip(times_s, chord_seq):
             writer.writerow([f"{t:.3f}", c])
+
+
+def read_beats_txt(filename):
+    """
+    Lee un archivo .txt donde cada línea contiene un tiempo de beat en segundos.
+    Retorna una lista de floats.
+    """
+    beat_times = []
+    with open(filename, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if line:  # si no está vacío
+                try:
+                    t = float(line)
+                    beat_times.append(t)
+                except ValueError:
+                    pass  # ignora líneas que no puedan convertirse a float
+    return beat_times
